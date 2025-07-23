@@ -1,16 +1,11 @@
-import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
-    <>
-      <div>
-        <span>{count}</span>
-        <div onClick={() => setCount(count + 1)}>12</div>
-      </div>
-    </>
+    <div className="app">
+      <Outlet /> {/* 就是 <router-view /> */}
+    </div>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,17 @@
+.menuContainer {
+  .ant-menu {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    .ant-menu-item-selected {
+      color: red !important;
+    }
+
+    .ant-menu-item {
+      &:hover {
+        color: red;
+      }
+    }
+  }
+}

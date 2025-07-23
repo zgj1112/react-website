@@ -92,3 +92,30 @@ website-react
 └─ yarn.lock
 
 ```
+```
+website-react
+├─ eslint.config.js
+├─ index.html
+├─ package.json
+├─ pnpm-lock.yaml
+├─ public
+├─ README.md
+├─ src
+│  ├─ App.tsx
+│  ├─ assets
+│  ├─ main.tsx
+│  ├─ pages
+│  │  ├─ manager
+│  │  │  └─ Manager.tsx
+│  │  └─ website
+│  │     ├─ Home.tsx
+│  │     └─ Index.tsx
+│  ├─ router
+│  │  └─ index.tsx
+│  └─ vite-env.d.ts
+├─ tsconfig.app.json
+├─ tsconfig.json
+├─ tsconfig.node.json
+└─ vite.config.ts
+
+```

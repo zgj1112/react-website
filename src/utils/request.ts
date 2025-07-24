@@ -41,11 +41,10 @@ instance.interceptors.request.use(
     //   managerApi.getContent,
     //   loginApi.Login,
     // ];
-    if (token) {
-      // 有 token 且不是白名单接口才加 token
-      if (!config.headers[ACCESS_TOKEN]) {
-        config.headers[ACCESS_TOKEN] = token;
-      }
+    // 有 token 且不是白名单接口才加 token
+    if (!config.headers[ACCESS_TOKEN]) {
+      config.headers[ACCESS_TOKEN] =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxIiwiZXhwIjoxNzUzNDI0ODE3LCJ2YWx1ZSI6ImFkbWluIn0.AWlpOI84M6w-nCmKMxSadkjjFUVKRCFr79svwAM1ZqM";
     }
 
     return config;

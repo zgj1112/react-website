@@ -4,6 +4,13 @@ import { GetCountent, CountentListType } from "@api/home";
 // import "./product.scss";
 import styles from "./product.module.scss";
 import { useEffect, useState } from "react";
+import { countentData } from "./data";
+import { useProductStore } from "src/store/store";
+
+export interface ProductSpecItem {
+  label: string; // 指标名
+  value: string; // 参数值
+}
 
 export interface ProductDataType {
   key?: string; // antd table 需要的key
@@ -24,7 +31,7 @@ export interface ProductDataType {
     text: string;
     file: UploadFile[];
   }[]; //详情页中间图片
-  // specs?: ProductSpecItem[]; // 新增：产品参数
+  specs?: ProductSpecItem[]; // 新增：产品参数
   // download?: ProductDownloadType[]; // 新增：下载信息
   createTime?: string;
   updateTime?: string;
@@ -125,30 +132,31 @@ const ProductTable: React.FC<PropsData> = ({ onEdit }) => {
 
   const [productData, setproductData] = useState<ProductDataType[]>([]);
   // const [messageApi, contextHolder] = message.useMessage();
+  const storeSetProductData = useProductStore((state) => state.setproductdata);
+  // const storeGetProductData = useProductStore((state) => state.productdata);
 
   const initData = () => {
     const body: bodytype = {
       moduleId: "1939983926311292929",
     };
-    GetCountent(body).then((res) => {
-      if (res.code == 200) {
-        // message.error("页面未进行配置，请联系管理员配置");
-        if (res.data.length > 0) {
-          let filterData: ProductDataType[] = [];
-          res.data.forEach((item) => {
-            let data: ProductDataType = JSON.parse(item.content);
-            filterData.push(data);
-          });
-          console.log(111, filterData);
-          // message.success("1111");
-          setproductData(filterData);
+    GetCountent(body)
+      .then((res) => {
+        if (res.code == 200) {
+          // message.error("页面未进行配置，请联系管理员配置");
+          if (res.data.length > 0) {
+            let filterData: ProductDataType[] = [];
+            res.data.forEach((item) => {
+              let data: ProductDataType = JSON.parse(item.content);
+              filterData.push(data);
+            });
+            // storeSetProductData(filterData);
+            setproductData(filterData);
+          }
         }
-        // else {
-        //   // message.error("页面未进行配置，请联系管理员配置");
-        //   // Object.assign(productData, defaultData);
-        // }
-      }
-    });
+      })
+      .catch(() => {
+        setproductData(countentData);
+      });
   };
 
   // ✅ 初始化调用

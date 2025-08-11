@@ -20,75 +20,74 @@ export type ProductModalRef = {
   openModal: (data?: ProductDataType) => void;
 };
 
-type Props = {
-  title?: "";
+// 18的用法
+// const ProductModal = forwardRef(
+//   (props: Props, ref: React.Ref<ProductModalRef>) => {
+
+// 19的用法
+const ProductModal = ({ ref }: { ref: React.Ref<ProductModalRef> }) => {
+  const [visible, setVisible] = useState<boolean>(false);
+  const [form] = Form.useForm<ProductDataType>();
+
+  const openModal = (formData?: ProductDataType) => {
+    if (formData) {
+      form.setFieldsValue(formData);
+    } else {
+      form.resetFields();
+    }
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        setVisible(false);
+      })
+      .catch((info) => {
+        console.log("Validate Failed:", info);
+      });
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
+  useImperativeHandle(ref, () => ({
+    openModal,
+  }));
+
+  return (
+    <Modal
+      title="编辑产品"
+      open={visible}
+      onOk={handleOk}
+      onCancel={handleCancel}
+    >
+      <Form form={form} layout="vertical">
+        <Form.Item
+          name="model"
+          label="型号"
+          rules={[{ required: true, message: "请输入型号" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item name="name" label="名称">
+          <Input />
+        </Form.Item>
+        <Form.Item name="title" label="标题">
+          <Input />
+        </Form.Item>
+        <Form.Item name="description" label="描述">
+          <Input.TextArea rows={3} />
+        </Form.Item>
+        <Form.Item name="image" valuePropName="value" label="上传展示图">
+          <UploadComponent />
+        </Form.Item>
+      </Form>
+      {/* <span>{JSON.stringify(form.getFieldsValue(true))}</span> */}
+    </Modal>
+  );
 };
-
-const ProductModal = forwardRef(
-  (props: Props, ref: React.Ref<ProductModalRef>) => {
-    const [visible, setVisible] = useState<boolean>(false);
-    const [form] = Form.useForm<ProductDataType>();
-
-    const openModal = (formData?: ProductDataType) => {
-      if (formData) {
-        form.setFieldsValue(formData);
-      } else {
-        form.resetFields();
-      }
-      setVisible(true);
-    };
-
-    const handleOk = () => {
-      form
-        .validateFields()
-        .then((values) => {
-          setVisible(false);
-        })
-        .catch((info) => {
-          console.log("Validate Failed:", info);
-        });
-    };
-
-    const handleCancel = () => {
-      setVisible(false);
-    };
-
-    useImperativeHandle(ref, () => ({
-      openModal,
-    }));
-
-    return (
-      <Modal
-        title="编辑产品"
-        open={visible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Form form={form} layout="vertical">
-          <Form.Item
-            name="model"
-            label="型号"
-            rules={[{ required: true, message: "请输入型号" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item name="name" label="名称">
-            <Input />
-          </Form.Item>
-          <Form.Item name="title" label="标题">
-            <Input />
-          </Form.Item>
-          <Form.Item name="description" label="描述">
-            <Input.TextArea rows={3} />
-          </Form.Item>
-          <Form.Item name="image" valuePropName="value" label="上传展示图">
-            <UploadComponent />
-          </Form.Item>
-        </Form>
-        {/* <span>{JSON.stringify(form.getFieldsValue(true))}</span> */}
-      </Modal>
-    );
-  }
-);
 
 export default ProductModal;

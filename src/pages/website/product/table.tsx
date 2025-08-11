@@ -3,7 +3,7 @@ import type { ColumnsType } from "antd/es/table";
 import { GetCountent, CountentListType } from "@api/home";
 // import "./product.scss";
 import styles from "./product.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { countentData } from "./data";
 import { useProductStore } from "src/store/store";
 
@@ -149,8 +149,10 @@ const ProductTable: React.FC<PropsData> = ({ onEdit }) => {
               let data: ProductDataType = JSON.parse(item.content);
               filterData.push(data);
             });
-            // storeSetProductData(filterData);
+            // console.log(filterData);
+            storeSetProductData(filterData);
             setproductData(filterData);
+            // console.log(productData);
           }
         }
       })
@@ -162,7 +164,14 @@ const ProductTable: React.FC<PropsData> = ({ onEdit }) => {
   // ✅ 初始化调用
   useEffect(() => {
     initData(); // 组件挂载后自动调用
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // 依赖数组为空，确保只调用一次
+
+  //页面渲染前调用
+  // useLayoutEffect(() => {
+  //     initData(); // 组件挂载后自动调用
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   }, []);
 
   return (
     <>

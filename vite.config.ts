@@ -10,7 +10,7 @@ export default defineConfig({
     port: 8080,
     proxy: {
       "/api": {
-        target: "http://192.168.0.7:8081", // 目标 API 地址
+        target: "http://139.159.152.231:40002", // 目标 API 地址
         changeOrigin: true, // 允许跨域请求
         rewrite: (path) => path.replace(/^\/api/, ""), // 重写路径，将 /api 替换为空
       },

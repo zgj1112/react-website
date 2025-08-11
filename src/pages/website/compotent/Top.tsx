@@ -31,8 +31,8 @@ const Top = () => {
       }}
     >
       <Menu
-        className={styles.menuContainer}
         mode="horizontal"
+        className={styles.test11}
         selectedKeys={[location.pathname]}
         items={menuItems}
         onClick={({ key }) => navigate(key)}

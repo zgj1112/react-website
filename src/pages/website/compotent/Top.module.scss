@@ -1,9 +1,9 @@
-.menuContainer {
-  .ant-menu {
-    font-size: 18px;
-    font-weight: bold;
-    text-transform: uppercase;
-
+.test11 {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: aqua;
+  :global {
     .ant-menu-item-selected {
       color: red !important;
     }
@@ -15,3 +15,10 @@
     }
   }
 }
+
+// .custom-menu .ant-menu {
+//   font-size: 18px;
+//   font-weight: bold;
+//   // text-transform: uppercase;
+//   color: red;
+// }
